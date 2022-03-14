@@ -145,6 +145,8 @@ function FastImageBase({
     forwardedRef,
     ...props
 }: FastImageProps & { forwardedRef: React.Ref<any> }) {
+    const [ready, setReady] = React.useState('0')
+
     if (fallback) {
         const cleanedSource = { ...(source as any) }
         delete cleanedSource.cache
@@ -168,7 +170,19 @@ function FastImageBase({
         )
     }
 
-    const resolvedSource = Image.resolveAssetSource(source as any)
+    const _source = typeof source === 'number' ? source : {
+        ...source,
+        headers: {
+            ...source.headers,
+            ready
+        }
+    }
+    const resolvedSource = Image.resolveAssetSource(_source as any)
+
+    const onFastImageLoad = (event: OnLoadEvent) => {
+        onLoad?.(event);
+        setReady('1')
+    }
 
     return (
         <View style={[styles.imageContainer, style]} ref={forwardedRef}>
@@ -179,7 +193,7 @@ function FastImageBase({
                 source={resolvedSource}
                 onFastImageLoadStart={onLoadStart}
                 onFastImageProgress={onProgress}
-                onFastImageLoad={onLoad}
+                onFastImageLoad={onFastImageLoad}
                 onFastImageError={onError}
                 onFastImageLoadEnd={onLoadEnd}
                 resizeMode={resizeMode}

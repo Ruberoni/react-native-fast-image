@@ -1,6 +1,6 @@
 {
-    "name": "react-native-fast-image",
-    "version": "8.5.11",
+    "name": "@ruberoni1/react-native-fast-image",
+    "version": "8.5.14",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
         "cache",
@@ -23,12 +23,12 @@
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
     "files": [
-        "android",
+        "./android",
         "!android/build",
-        "ios",
+        "./ios",
         "!ios/build",
-        "dist",
-        "RNFastImage.podspec"
+        "./dist",
+        "./RNFastImage.podspec"
     ],
     "scripts": {
         "build": "dv-scripts build && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
